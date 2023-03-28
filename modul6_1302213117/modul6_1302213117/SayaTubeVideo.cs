@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,9 @@ namespace modul6_1302213117
 
         public SayaTubeVideo(string title)
         {
+            //Predisposition #1 & #2
+            Debug.Assert(title.Length < 200 && title != null, "Input tidak valid");
+            
             Random random = new Random();
             id = random.Next(10000, 100000);
             this.title = title;
@@ -22,7 +26,21 @@ namespace modul6_1302213117
 
         public void IncreasePlayCount(int tambah)
         {
-            playCount += tambah;
+            //Predisposition #3 & #4
+            Debug.Assert(tambah >= 0 && tambah <= 25000000, "Penambahan tidak valid");
+            
+            //Exception
+            try
+            {
+                checked
+                {
+                    playCount += tambah;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         public void PrintVideoDetails()

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +16,9 @@ namespace modul6_1302213117
 
         public SayaTubeUser(string Username)
         {
+            //Predisposition #5 & #6
+            Debug.Assert(Username.Length < 100 && Username != null, "Username tidak valid");
+
             Random random = new Random();
             id = random.Next(10000, 100000);
             uploadedVideo = new List<SayaTubeVideo>();
@@ -31,6 +36,9 @@ namespace modul6_1302213117
 
         public void AddVideo(SayaTubeVideo video)
         {
+            //Predisposition #7 & #8
+            Debug.Assert(video != null && video.GetPlayCount() <= int.MaxValue,"Video tidak valid");
+
             uploadedVideo.Add(video);
         }
 
@@ -43,6 +51,9 @@ namespace modul6_1302213117
                 i++;
                 Console.WriteLine("Video "+i+" : " + video.GetTitle());
             }
+
+            //Postcondition
+            Debug.Assert(i < 9, "Kelebihan print");
         }
     }
 }
